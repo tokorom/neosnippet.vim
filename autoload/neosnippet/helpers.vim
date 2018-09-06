@@ -5,7 +5,7 @@
 "=============================================================================
 
 function! neosnippet#helpers#get_cursor_snippet(snippets, cur_text) abort
-  let cur_word = matchstr(a:cur_text, '\S\+$')
+  let cur_word = matchstr(a:cur_text, '[\x01-\x08\x10-\x19\x21-\x7E]\+$')
   if cur_word != '' && has_key(a:snippets, cur_word)
       return cur_word
   endif
@@ -165,7 +165,7 @@ function! neosnippet#helpers#json2vim(expr) abort
 endfunction
 
 function! s:is_beginning_of_line(cur_text) abort
-  let keyword_pattern = '\S\+'
+  let keyword_pattern = '[\x01-\x08\x10-\x19\x21-\x7E]\+'
   let cur_keyword_str = matchstr(a:cur_text, keyword_pattern.'$')
   let line_part = a:cur_text[: -1-len(cur_keyword_str)]
   let prev_word_end = matchend(line_part, keyword_pattern)
